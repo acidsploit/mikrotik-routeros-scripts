@@ -23,7 +23,7 @@ Further configuration settings require the interface name on your mikrotik route
 
 Install the [script](OVHDynDNS) as 'ovhddns'.
 
-Define a sheduler to run every 30 minutes.
+Define a sheduler to run every 30 minutes. You can lower the interval time, since the script only connects to OVH when your IP has changed.
 
     /system scheduler 
     add interval=30m name=OVHDynDNS on-event="/system script run ovhddns" policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive start-time=startup
