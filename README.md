@@ -25,6 +25,7 @@ Define a sheduler to run every 30 minutes.
     add interval=30m name=OVHDynDNS on-event="/system script run ovhddns" policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive start-time=startup
     
 
+
 CLI RUNTHROUGH
 
     /system script
