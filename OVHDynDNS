@@ -16,7 +16,7 @@
 :if ($ipddns != $ipfresh) do={
    :log info ("OVHDynDNS: DNS RECORD IP = $ipddns")
    :log info ("OVHDynDNS: CURRENT IP = $ipfresh")
-   :log info ("OVHDynDNS: UPDATING $ovhddnshost RECORD!")
+   :log info ("OVHDynDNS: UPDATING $ovhddnshost DNS RECORD!")
    :global str "/nic/update\?system=dyndns&hostname=$ovhddnshost&myip=$ipfresh&wildcard=OFF&backmx=NO&mx=NOCHG"
    /tool fetch address=ovh.com src-path=$str mode=https user=$ovhddnsuser password=$ovhddnspass dst-path=("/OVHDynDNS.".$ovhddnshost)
    :delay 1
