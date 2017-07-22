@@ -17,7 +17,7 @@ Further configuration settings require the interface name on your mikrotik route
     :global theinterface "<INTERFACE THAT HAS YOUR PUBLIC IP>"
     :global ovhddnshost "<OVHDynDNS HOSTNAME>"
 
-Install the script as 'ovhddns'.
+Install the [script](OVHDynDNS) as 'ovhddns'.
 
 Define a sheduler to run every 30 minutes.
 
