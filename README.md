@@ -3,7 +3,7 @@ mikrotik-routeros-scripts
 My scripts for MikroTik RouterOS
 
 
-OVHDynDNS - OVH DynDNS Update Script for MirkoTik RouterOS
+OVHDynDNS - OVH DynDNS Update Script for MikroTik RouterOS
 ----------------------------------------------------------
 This scrip updates your dynamic IP on your OVH dyndns record, when that IP address changes. This script works specifically for the DynDNS service hosted by OVH.
 
