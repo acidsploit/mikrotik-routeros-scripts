@@ -1,0 +1,30 @@
+:global ovhddnsuser "<OVH DynDNS USER>"
+:global ovhddnspass "<OVH DynDNS PASS>"
+:global theinterface "<INTERFACE THAT HAS YOU PUBLIC IP>"
+:global ovhddnshost "<OVHDynDNS HOSTNAME>"
+:global ipddns [:resolve $ovhddnshost];
+:global ipfresh [ /ip address get [/ip address find interface=$theinterface ] address ]
+:if ([ :typeof $ipfresh ] = nil ) do={
+   :log info ("OVHDynDNS: No ip address on $theinterface .")
+} else={
+   :for i from=( [:len $ipfresh] - 1) to=0 do={ 
+      :if ( [:pick $ipfresh $i] = "/") do={ 
+    :set ipfresh [:pick $ipfresh 0 $i];
+      } 
+}
+ 
+:if ($ipddns != $ipfresh) do={
+   :log info ("OVHDynDNS: DNS RECORD IP = $ipddns")
+   :log info ("OVHDynDNS: CURRENT IP = $ipfresh")
+   :log info ("OVHDynDNS: UPDATING OVHDDNS RECORD!")
+   :global str "/nic/update\?system=dyndns&hostname=$ovhddnshost&myip=$ipfresh&wildcard=OFF&backmx=NO&mx=NOCHG"
+   /tool fetch address=ovh.com src-path=$str mode=https user=$ovhddnsuser password=$ovhddnspass dst-path=("/OVHDynDNS.".$ovhddnshost)
+   :delay 1
+   :global str [/file find name="OVHDynDNS.$ovhddnshost"];
+   /file remove $str
+   :global ipddns $ipfresh
+   :log info "OVHDynDNS: IP updated to $ipfresh!"
+    } else={
+     :log info "DynDNS: dont need changes";
+    }
+}
