@@ -5,7 +5,7 @@ My scripts for MikroTik RouterOS
 
 OVHDynDNS - OVH DynDNS Update Script for MirkoTik RouterOS
 ----------------------------------------------------------
-This scrip updates your dynamic ip on your OVH dyndns record. This script works specifically for the DynDNS service hosted by OVH.
+This scrip updates your dynamic IP on your OVH dyndns record, when that IP address changes. This script works specifically for the DynDNS service hosted by OVH.
 
 First you need to create a user to manage access to your DynDNS subdomain. You can do this through your OVH control panel/manager. You will need those credentials for the scipt to work:
 
@@ -24,6 +24,10 @@ Define a sheduler to run every 30 minutes.
     /system scheduler 
     add interval=30m name=OVHDynDNS on-event="/system script run ovhddns" policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive start-time=startup
     
+Thats it! 
+
+Verify you routeros log and do a nslookup to check if everything is working as expected.
+
 
 
 CLI RUNTHROUGH
