@@ -55,7 +55,7 @@ ___
         \n:if (\$ipddns != \$ipfresh) do={\
         \n   :log info (\"OVHDynDNS: DNS RECORD IP = \$ipddns\")\
         \n   :log info (\"OVHDynDNS: CURRENT IP = \$ipfresh\")\
-        \n   :log info (\"OVHDynDNS: UPDATING OVHDDNS RECORD!\")\
+        \n   :log info (\"OVHDynDNS: UPDATING \$ovhddnshost DNS RECORD!\")\
         \n   :global str \"/nic/update\\\?system=dyndns&hostname=\$ovhddnshost&myip=\$ipfresh&wildcard=OFF&backmx=NO&mx=NOCHG\"\
         \n   /tool fetch address=ovh.com src-path=\$str mode=https user=\$ovhddnsuser password=\$ovhddnspass dst-path=(\"/OVHDynDNS.\".\$ovhddnshost)\
         \n   :delay 1\
