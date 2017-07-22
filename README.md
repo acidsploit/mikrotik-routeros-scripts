@@ -1,10 +1,10 @@
 mikrotik-routeros-scripts
 =========================
-Scripts for MikroTik RouterOS
+My scripts for MikroTik RouterOS
 
 
-OVHDynDNS - OVH DynDNS Update Script
-------------------------------------
+OVHDynDNS - OVH DynDNS Update Script for MirkoTik RouterOS
+----------------------------------------------------------
 This scrip updates your dynamic ip on your dyndns record. This script works specifically for the DynDNS service hosted by OVH.
 
 First you need to create a user to manage access to your DynDNS subdomain. You can do this through your OVH control panel/manager. You will need those credentials for the scipt to work:
