@@ -2,10 +2,8 @@ mikrotik-routeros-scripts
 =========================
 My scripts for MikroTik RouterOS
 
-## Table of Contents
-
 - [OVHDynDNS](#ovhdyndns)
-  * [CLI RUNTHROUGH](#cli)
+  * [CLI](#cli)
 
 
 ## OVHDynDNS
@@ -37,7 +35,6 @@ Verify you routeros log and do a nslookup to check if everything is working as e
 ___
 
 ### CLI 
-**RUNTHROUGH**
 
     /system script
     add name=ovhddns owner=admin policy=read,write,test source=":global ovhddnsuser \"<OVH DynDNS USER>\"\
