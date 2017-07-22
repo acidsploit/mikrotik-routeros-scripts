@@ -36,7 +36,8 @@ Verify you routeros log and do a nslookup to check if everything is working as e
 
 ___
 
-### CLI RUNTHROUGH
+### CLI 
+**RUNTHROUGH**
 
     /system script
     add name=ovhddns owner=admin policy=read,write,test source=":global ovhddnsuser \"<OVH DynDNS USER>\"\
