@@ -5,7 +5,7 @@ My scripts for MikroTik RouterOS
 ## Table of Contents
 
 - [OVHDynDNS](#ovhdyndns)
-  * [CLI RUNTHROUGH](#cli runthrough)
+  * [CLI RUNTHROUGH](#cli)
 
 
 ## OVHDynDNS
