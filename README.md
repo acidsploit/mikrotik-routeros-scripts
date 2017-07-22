@@ -14,7 +14,7 @@ First you need to create a user to manage access to your DynDNS subdomain. You c
   
 Further configuration settings require the interface name on your mikrotik router which holds your public IP. You will also need to specify your OVH DynDNS hostname (something like dynhost.mydomain.com).
 
-    :global theinterface "<INTERFACE THAT HAS YOU PUBLIC IP>"
+    :global theinterface "<INTERFACE THAT HAS YOUR PUBLIC IP>"
     :global ovhddnshost "<OVHDynDNS HOSTNAME>"
 
 Install the script as 'ovhddns'.
