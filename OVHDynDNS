@@ -1,6 +1,6 @@
 :global ovhddnsuser "<OVH DynDNS USER>"
 :global ovhddnspass "<OVH DynDNS PASS>"
-:global theinterface "<INTERFACE THAT HAS YOU PUBLIC IP>"
+:global theinterface "<INTERFACE THAT HAS YOUR PUBLIC IP>"
 :global ovhddnshost "<OVHDynDNS HOSTNAME>"
 :global ipddns [:resolve $ovhddnshost];
 :global ipfresh [ /ip address get [/ip address find interface=$theinterface ] address ]
