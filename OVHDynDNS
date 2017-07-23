@@ -25,6 +25,6 @@
    :global ipddns $ipfresh
    :log info "OVHDynDNS: IP updated to $ipfresh!"
     } else={
-     :log info "DynDNS: dont need changes";
+     :log info "OVHDynDNS: dont need changes";
     }
 }
