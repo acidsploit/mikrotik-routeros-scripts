@@ -64,7 +64,7 @@ ___
         \n   :global ipddns \$ipfresh\
         \n   :log info \"OVHDynDNS: IP updated to \$ipfresh!\"\
         \n    } else={\
-        \n     :log info \"DynDNS: dont need changes\";\
+        \n     :log info \"OVHDynDNS: dont need changes\";\
         \n    }\
         \n}"
         
