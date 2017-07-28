@@ -26,7 +26,7 @@ Install the [script](OVHDynDNS) as 'ovhddns'.
 Define a sheduler to run every 30 minutes. You can lower the interval time, since the script only connects to OVH when your IP has changed.
 
     /system scheduler 
-    add interval=30m name=OVHDynDNS on-event="/system script run ovhddns" policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive start-time=startup
+    add interval=30m name=OVHDynDNS on-event="/system script run ovhddns" policy=read,write start-time=startup
     
 Thats it! 
 
@@ -36,39 +36,56 @@ ___
 
 ### CLI 
 
-    /system script
-    add name=ovhddns owner=admin policy=read,write,test source=":global ovhddnsuser \"<OVH DynDNS USER>\"\
+    add name=ovhddns owner=admin policy=read,write source=":global ovhddnsuser \"<OVH DynDNS USER>\"\                                                              [0/9937]
         \n:global ovhddnspass \"<OVH DynDNS PASS>\"\
         \n:global theinterface \"<INTERFACE THAT HAS YOU PUBLIC IP>\"\
         \n:global ovhddnshost \"<OVHDynDNS HOSTNAME>\"\
-        \n:global ipddns [:resolve \$ovhddnshost];\
+        \n:global ipddns [:resolve \$ovhddnshost]\
         \n:global ipfresh [ /ip address get [/ip address find interface=\$theinterface ] address ]\
         \n:if ([ :typeof \$ipfresh ] = nil ) do={\
         \n   :log info (\"OVHDynDNS: No ip address on \$theinterface .\")\
         \n} else={\
         \n   :for i from=( [:len \$ipfresh] - 1) to=0 do={ \
         \n      :if ( [:pick \$ipfresh \$i] = \"/\") do={ \
-        \n    :set ipfresh [:pick \$ipfresh 0 \$i];\
+        \n    :set ipfresh [:pick \$ipfresh 0 \$i]\
         \n      } \
         \n}\
         \n \
         \n:if (\$ipddns != \$ipfresh) do={\
-        \n   :log info (\"OVHDynDNS: DNS RECORD IP = \$ipddns\")\
-        \n   :log info (\"OVHDynDNS: CURRENT IP = \$ipfresh\")\
-        \n   :log info (\"OVHDynDNS: UPDATING \$ovhddnshost DNS RECORD!\")\
-        \n   :global str \"/nic/update\\\?system=dyndns&hostname=\$ovhddnshost&myip=\$ipfresh&wildcard=OFF&backmx=NO&mx=NOCHG\"\
-        \n   /tool fetch address=ovh.com src-path=\$str mode=https user=\$ovhddnsuser password=\$ovhddnspass dst-path=(\"/OVHDynDNS.\".\$ovhddnshost)\
+        \n   :log info (\"OVHDynDNS: \$ovhddnshost DNS RECORD IP = \$ipddns\")\
+        \n   :log info (\"OVHDynDNS: \$theinterface CURRENT IP = \$ipfresh\")\
+        \n   :log info (\"OVHDynDNS: UPDATING \$ovhddnshost -> \$ipfresh\")\
+        \n   :global str \"nic/update\?system=dyndns&hostname=\$ovhddnshost&myip=\$ipfresh&wildcard=OFF&backmx=NO&mx=NOCHG\"\
+        \n\
+        \n   # DEBUG fetch command\
+        \n   #:log info (\"OVHDynDNS: /tool fetch address=www.ovh.com host=www.ovh.com src-path=\$str mode=https user=\$ovhddnsuser password=\$ovhddnspass dst-path=(\\\"\
+        /OVHDynDNS.\$ovhddnshost\\\")\")\
+        \n   /tool fetch address=www.ovh.com host=www.ovh.com src-path=\$str mode=https user=\$ovhddnsuser password=\$ovhddnspass dst-path=(\"/OVHDynDNS.\".\$ovhddnshost\
+        )\
         \n   :delay 1\
-        \n   :global str [/file find name=\"OVHDynDNS.\$ovhddnshost\"];\
+        \n\
+        \n   :global ovhresult [/file get \"OVHDynDNS.\$ovhddnshost\" contents]\
+        \n   :log info \"OVHDynDNS: OVH response: \$ovhresult\"\
+        \n\
+        \n   :global str [/file find name=\"OVHDynDNS.\$ovhddnshost\"]\
         \n   /file remove \$str\
+        \n   \
+        \n   :if (\$ovhresult = \"good \$ipfresh\\n\" ) do={\
+        \n      :log info \"OVHDynDNS: SUCCESS\"\
+        \n   } else={\
+        \n       :log info \"OVHDynDNS: FAILED\"\
+        \n   }\
+        \n\
         \n   :global ipddns \$ipfresh\
-        \n   :log info \"OVHDynDNS: IP updated to \$ipfresh!\"\
+        \n   :log info \"OVHDynDNS: \$ovhddnshost DNS RECORD = \$ipfresh!\"\
         \n    } else={\
-        \n     :log info \"OVHDynDNS: dont need changes\";\
+        \n     :log info \"OVHDynDNS: We good!\"\
         \n    }\
-        \n}"
+        \n}\
+        \n"
         
-    /system scheduler
-    add interval=30m name=OVHDynDNS on-event="/system script run ovhddns" policy=read,write,test start-time=startup
+
+    /system scheduler 
+    add interval=30m name=OVHDynDNS on-event="/system script run ovhddns" policy=read,write start-time=startup
     
 ___
