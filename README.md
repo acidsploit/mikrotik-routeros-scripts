@@ -3,7 +3,6 @@ mikrotik-routeros-scripts
 My scripts for MikroTik RouterOS
 
 - [OVHDynDNS](#ovhdyndns)
-  * [CLI](#cli)
 
 
 ## OVHDynDNS
@@ -30,6 +29,6 @@ Define a sheduler to run every 30 minutes. You can lower the interval time, sinc
     
 Thats it! 
 
-Verify you routeros log and do a nslookup to check if everything is working as expected.
+Verify your routeros log and do a nslookup to check if everything is working as expected.
 
 ___
